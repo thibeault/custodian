@@ -1,0 +1,18 @@
+policies:
+- name: ec2-tag-compliance-mark
+  resource: ec2
+  comment: |
+    Mark non-compliant, Non-ASG EC2 instances with stoppage in 4 days
+  filters:
+    - "State.Name": running
+    - "tag:aws:autoscaling:groupName": absent
+    - "tag:c7n_status": absent
+    - type: tag-count
+    - or:
+      - "tag:Owner": absent
+      - "tag:CostCenter": absent
+      - "tag:Project": absent
+  actions:
+    - type: mark-for-op
+      op: stop
+      days: 4
