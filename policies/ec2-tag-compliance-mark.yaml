@@ -7,7 +7,6 @@ policies:
     - "State.Name": running
     - "tag:aws:autoscaling:groupName": absent
     - "tag:c7n_status": absent
-    - type: tag-count
     - or:
       - "tag:Owner": absent
       - "tag:CostCenter": absent
