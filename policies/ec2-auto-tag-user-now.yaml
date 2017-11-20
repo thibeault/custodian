@@ -1,0 +1,11 @@
+policies:
+- name: ec2-auto-tag-user
+  resource: ec2
+  comment: |
+    Mark any running instance without CreatorName with CreatorID
+  filters:
+    - tag:CreatorName: absent
+  actions:
+    - type: mark
+      tag: CreatorName
+      msg: "thibeault@gmail.com"
