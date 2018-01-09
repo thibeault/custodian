@@ -6,12 +6,17 @@ policies:
   filters:
     - "State.Name": running
     - "tag:aws:autoscaling:groupName": absent
-    - "tag:c7n_status": absent
+    - "tag:c7n_tag_status": absent
     - or:
+      - "tag:Name": absent
       - "tag:Owner": absent
+      - "tag:Team": absent
       - "tag:CostCenter": absent
-      - "tag:Project": absent
+      - "tag:BusinessUnits": absent
+      - "tag:Environment": absent
+      - "tag:Application": absent
   actions:
     - type: mark-for-op
       op: stop
+      tag: c7n_tag_status
       days: 4

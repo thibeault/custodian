@@ -2,10 +2,35 @@ policies:
 - name: ec2-auto-tag-user-now
   resource: ec2
   comment: |
-    Mark any running instance without CreatorName with CreatorID
+    Mark any running instance without CreatorName with ethibeault@shutterstock.com
   filters:
-    - tag:CreatorName: absent
+    - or:
+      - "tag:Name": absent
+      - "tag:Owner": absent
+      - "tag:Team": absent
+      - "tag:CostCenter": absent
+      - "tag:BusinessUnits": absent
+      - "tag:Environment": absent
+      - "tag:Application": absent
   actions:
-    - type: mark
-      tag: CreatorName
-      msg: "thibeault@gmail.com"
+    - type: tag
+      key: Name
+      value: "Testing c7n"
+    - type: tag
+      key: Owner
+      value: "ethibeault@shutterstock.com"
+    - type: tag
+      key: Team
+      value: "ethibeault@shutterstock.com"
+    - type: tag
+      key: CostCenter
+      value: "1528"
+    - type: tag
+      key: BusinessUnits
+      value: "techops"
+    - type: tag
+      key: Environment
+      value: "dev"
+    - type: tag
+      key: Application
+      value: "c7n"

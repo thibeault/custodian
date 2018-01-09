@@ -4,8 +4,6 @@ policies:
   description:
     List out resource that does not meet tag compliance policies.
   filters:
-    - State.Name: running
-    - "tag:owner": absent
-    - or:
-      - "tag:Owner": absent
-      - "tag:Cost Center": absent
+    - type: marked-for-op
+      tag: c7n_status
+      op: stop
