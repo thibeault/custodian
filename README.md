@@ -74,3 +74,39 @@ misc:
   - "tag:BusinessUnits": absent
   - "tag:Environment": absent
   - "tag:Application": absent
+
+
+
+############
+policies
+
+- ec2-auto-tag-user
+desc:
+    - Any instances created should get auto tag with CreatorId and CreatorName
+
+- ec2-tag-compliance-mark
+desc:
+    - Look for any running instances that does not comply with our tagging policy
+      Mark the instance for retirement in 14 days
+      Notify owner of missing tags
+req:
+    - State == running
+    - Not part of autoscaling group
+    - Not already marked
+    - "tag:Name": absent
+    - "tag:Owner": absent
+    - "tag:Team": absent
+    - "tag:CostCenter": absent
+    - "tag:BusinessUnits": absent
+    - "tag:Environment": absent
+    - "tag:Application": absent
+
+
+- ec2-stop-notify-2
+  - send second notification msg 7 days before
+  - mark instance second notification initiated
+
+- ec2-stop-notify-3
+  - send final notification msg
+  - remove second notification 1 day before
+  - mark instance final notification initiated

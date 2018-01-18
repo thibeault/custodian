@@ -6,7 +6,8 @@ policies:
       # The default tag used is custodian_status
       # but that is configurable
       tag: c7n_tag_status
+      skew: 7
       op: stop
       # Another optional tag is skew
-  actions:
-    - stop
+#  actions:
+#    - stop
