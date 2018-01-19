@@ -1,4 +1,20 @@
 # custodian
+# Tag policy
+# http://www.capitalone.io/cloud-custodian/docs/usecases/tagcompliance.html
+# Lambda
+# http://www.capitalone.io/cloud-custodian/docs/policy/lambda.html
+
+## Good discussion can be found here
+# https://gitter.im/capitalone/cloud-custodian
+
+## Legacy create t2.micro test instance
+aws ec2 run-instances --image-id ami-97785bed --count 1 --instance-type t2.micro --key-name aws-team --security-group-ids sg-18c9d474 --subnet-id subnet-7751335c --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=c7n_test},{Key=Owner,Value=ethibeault@shutterstock.com},{Key=Team,Value=ethibeault@shutterstock.com},{Key=CostCenter,Value=1528},{Key=BusinessUnits,Value=techops},{Key=Environment,Value=dev},{Key=Application,Value=c7n_test}]' 'ResourceType=volume,Tags=[{Key=Name,Value=c7n_test},{Key=Owner,Value=ethibeault@shutterstock.com},{Key=Team,Value=ethibeault@shutterstock.com},{Key=CostCenter,Value=1528},{Key=BusinessUnits,Value=techops},{Key=Environment,Value=dev},{Key=Application,Value=c7n_test}]'
+
+### Architecture create t2.micro test instance
+aws ec2 run-instances --image-id ami-97785bed --count 1 --instance-type t2.micro --key-name ethibeault-us-east-1 --security-group-ids sg-9a54beeb --subnet-id subnet-6644e33c --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value=c7n_test},{Key=Owner,Value=ethibeault@shutterstock.com},{Key=Team,Value=ethibeault@shutterstock.com},{Key=CostCenter,Value=1528},{Key=BusinessUnits,Value=techops},{Key=Environment,Value=dev},{Key=Application,Value=c7n_test}]' 'ResourceType=volume,Tags=[{Key=Name,Value=c7n_test},{Key=Owner,Value=ethibeault@shutterstock.com},{Key=Team,Value=ethibeault@shutterstock.com},{Key=CostCenter,Value=1528},{Key=BusinessUnits,Value=techops},{Key=Environment,Value=dev},{Key=Application,Value=c7n_test}]'
+
+
+
 
 # Vagrant notes
 vagrant init ubuntu/trusty64
