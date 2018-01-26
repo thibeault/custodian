@@ -4,6 +4,9 @@
 # Lambda
 # http://www.capitalone.io/cloud-custodian/docs/policy/lambda.html
 
+https://github.com/capitalone/cloud-custodian/blob/master/tools/c7n_mailer/README.md
+
+
 ## Good discussion can be found here
 # https://gitter.im/capitalone/cloud-custodian
 
@@ -56,6 +59,17 @@ custodian validate policies/tag-compliance.yaml
 custodian run --dryrun -s . --cache-period=0 policies/tag-compliance.yaml
 custodian run -s . --cache-period=0 policies/tag-compliance.yaml
 custodian schema ec2.actions.unmark
+
+
+custodian run \
+-v -m -s ./logs/ -l /YourLogGroup -r all \
+--assume \
+"arn:aws:iam::123123123123:role/c7nLambdaExecutionRole" \
+YourPolicyFile1.yml YourPolicyFile2.yml ...
+
+
+custodian run --dryrun -s ./logs/ --cache-period=0 policies/ec2-tag-enforcement.yml
+
 
 
 ----
@@ -126,3 +140,28 @@ req:
   - send final notification msg
   - remove second notification 1 day before
   - mark instance final notification initiated
+
+
+
+# Create stacks role
+CFTEMPLATE=$(cat  c7n-core/c7nLambdaExecutionRole-CloudFormation.yml)
+aws --profile default --region us-east-1 cloudformation create-stack --stack-name c7n-role --template-body "$CFTEMPLATE" --capabilities CAPABILITY_NAMED_IAM
+
+# Update stacks role
+CFTEMPLATE=$(cat  c7n-core/c7nLambdaExecutionRole-CloudFormation.yml)
+aws --profile default --region us-east-1 cloudformation update-stack --stack-name c7n-role --template-body "$CFTEMPLATE" --capabilities CAPABILITY_NAMED_IAM
+
+# Create stacks SQS
+CFTEMPLATE=$(cat  c7n-core/c7nSQSMessageQueues-CloudFormation.yml)
+aws --profile default --region us-east-1 cloudformation create-stack --stack-name c7n-mailer-sqs --template-body "$CFTEMPLATE" --capabilities CAPABILITY_NAMED_IAM
+
+# Update stacks SQS
+CFTEMPLATE=$(cat  c7n-core/c7nSQSMessageQueues-CloudFormation.yml)
+aws --profile default --region us-east-1 cloudformation update-stack --stack-name c7n-mailer-sqs --template-body "$CFTEMPLATE" --capabilities CAPABILITY_NAMED_IAM
+
+
+
+
+docker build -f Dockerfile2 -t thibeault:oktatest .
+
+docker run  -it -v /Users/ethibeault/:/var/ethibeault thibeault:oktatest bash

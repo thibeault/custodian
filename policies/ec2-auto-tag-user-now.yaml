@@ -18,10 +18,10 @@ policies:
       value: "Testing c7n"
     - type: tag
       key: Owner
-      value: "ethibeault@shutterstock.com"
+      value: "tech.aws-governance.team@shutterstock.com"
     - type: tag
       key: Team
-      value: "ethibeault@shutterstock.com"
+      value: "tech.aws-governance.team@shutterstock.com"
     - type: tag
       key: CostCenter
       value: "1528"

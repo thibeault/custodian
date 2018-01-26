@@ -7,6 +7,15 @@ policies:
     # note {account_id} is optional. If you put that there instead of
     # your actual account number, when the policy is provisioned it
     # will automatically inherit the account_id properly
+    tags: {
+            'Name': 'ec2-auto-tag-user',
+            'Owner': 'thibeault',
+            'Team': 'thibeault',
+            'CostCenter': '1528',
+            'BusinessUnits': 'techops',
+            'Environment': 'prod',
+            'Application': 'c7n'
+          }
     events:
       - RunInstances
   filters:
