@@ -1,0 +1,36 @@
+policies:
+- name: distribution-auto-tag-now
+  resource: distribution
+  comment: |
+    Mark any cloudfront distribution without mandatory tags and insert the following tags
+  filters:
+    - or:
+      - "tag:Name": absent
+      - "tag:Owner": absent
+      - "tag:Team": absent
+      - "tag:CostCenter": absent
+      - "tag:BusinessUnits": absent
+      - "tag:Environment": absent
+      - "tag:Application": absent
+  actions:
+    - type: tag
+      key: Name
+      value: "Testing c7n"
+    - type: tag
+      key: Owner
+      value: "tech.aws-governance.team@shutterstock.com"
+    - type: tag
+      key: Team
+      value: "tech.aws-governance.team@shutterstock.com"
+    - type: tag
+      key: CostCenter
+      value: "1528"
+    - type: tag
+      key: BusinessUnits
+      value: "techops"
+    - type: tag
+      key: Environment
+      value: "dev"
+    - type: tag
+      key: Application
+      value: "c7n"

@@ -1,0 +1,36 @@
+policies:
+- name: sqs-auto-tag-now
+  resource: sqs
+  comment: |
+    Mark any sqs without mandatory tags and insert the following tags
+  filters:
+    - or:
+      - "tag:Name": absent
+      - "tag:Owner": absent
+      - "tag:Team": absent
+      - "tag:CostCenter": absent
+      - "tag:BusinessUnits": absent
+      - "tag:Environment": absent
+      - "tag:Application": absent
+  actions:
+    - type: tag
+      key: Name
+      value: "Testing c7n"
+    - type: tag
+      key: Owner
+      value: "thibeault"
+    - type: tag
+      key: Team
+      value: "thibeault"
+    - type: tag
+      key: CostCenter
+      value: "1528"
+    - type: tag
+      key: BusinessUnits
+      value: "techops"
+    - type: tag
+      key: Environment
+      value: "dev"
+    - type: tag
+      key: Application
+      value: "c7n"
